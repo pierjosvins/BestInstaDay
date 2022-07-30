@@ -50,7 +50,7 @@ def getInfo(profile):
     
         pwd=driver.find_element(By.CSS_SELECTOR, "input[name='password']")
         pwd.clear()
-        pwd.send_keys("best74375673")
+        pwd.send_keys("PASSWORD")
     
         login = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
         driver.execute_script("arguments[0].click();", login)
