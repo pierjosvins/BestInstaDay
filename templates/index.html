@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>BestInstaDay</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+    <noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}"
+    /></noscript>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Header -->
+        <header id="header">
+            <div class="logo">
+                <i class="fab fa-instagram fa-spin fa-5x"></i>
+            </div>
+            <div class="content">
+                <div class="inner">
+                    <h1>BestInstaDay</h1>
+                    <p>
+                        Best Day and Hour to post on instagram to improve engagement from your followers. <br/>
+                        Stop guessing when to post. Follow our recommendations in order to start growing on Instagram!
+                    </p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#intro">Intro</a></li>
+                    <li><a href="#predict">Get Started</a></li>
+                    <li><a href="#about">About</a></li>
+                    <!--<li><a href="#contact">Contact</a></li>-->
+                    <!--<li><a href="#elements">Elements</a></li>-->
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <div id="main">
+            <!-- Intro -->
+            <article id="intro">
+                <h2 class="major">Intro</h2>
+                <p>
+                    Tool to predict the best times to post on instagram to improve and gain engagement from your followers. If you don't know when to post on Instagram, then BestInstaDay is here to help. Our machine learning algorithm has been trained on thousands of Instagram
+                    account data to determine the best times to post. This is useful for social media marketing. <br/>Never post a good content at a bad time again! Stop guessing when to post. Follow our recommendations in order to start growing
+                    on Instagram! <br/> So be it, <a href="#predict"> LET START</a>!
+                    <br/><br/> Keep in mind, BestInstaDay is not affiliated with Instagram™. We do not host any Instagram content. All rights belong to their respective owners.
+                </p>
+            </article>
+
+            <!-- predict -->
+            <article id="predict">
+                <h2 class="major">Recommendations</h2>
+                <form method="post" action="#" id="form-analyze">{% csrf_token %}
+                    <div class="fields">
+                        <div class="field half">
+                            {{form.search}}
+                        </div>
+                        <div class="field half">
+                            <input onclick="showLoader()" type="submit" value="Analyze" class="primary" />
+                        </div>
+                    </div>
+                </form>
+                <div class="loader" id="loader">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                    <div class="bar4"></div>
+                    <div class="bar5"></div>
+                    <div class="bar6"></div>
+                </div>
+
+                {% if data %}
+                <div class="fields">
+                    <div class="card">
+                        <div class="banner"></div>
+                        <h2 class="name">@{{username}}</h2>
+                        <div class="actions">
+                            <div class="follow-info">
+                                <h2>
+                                    <span>
+                                        <span>{{data.1}}</span>
+                                    <small>POSTS</small>
+                                    </span>
+                                </h2>
+                                <h2>
+                                    <span>
+                                        <span>{{data.0}}</span>
+                                    <small>FOLLOWERS</small>
+                                    </span>
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="desc">
+                            <hr />
+                            <div class="follow-btn">
+                                <h2>Suggestions</h2>
+                            </div>
+                            <p>In order to increase your Instagram Engagement, you have to post <span class="posts_week">{{posts_per_week}}</span> times per week by following the suggested days and hours. Here are our algorithm suggestions.</p>
+                        </div>
+                        <div id="wrapper" style="overflow-x: auto">
+                            <h1>5 Best Days and Hours</h1>
+
+                            <table id="keywords" cellspacing="0" cellpadding="0">
+                                <thead>
+                                    <tr>
+                                        <th><span>Days</span></th>
+                                        <th><span>Hour</span></th>
+                                        <th><span>Engagement</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td class="lalign">{{predicted_data.0.0}}</td>
+                                        <td>{{predicted_data.0.1}}:00</td>
+                                        <td>{{predicted_data.0.2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="lalign">{{predicted_data.1.0}}</td>
+                                        <td>{{predicted_data.1.1}}:00 </td>
+                                        <td>{{predicted_data.1.2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="lalign">{{predicted_data.2.0}}</td>
+                                        <td>{{predicted_data.2.1}}:00 </td>
+                                        <td>{{predicted_data.2.2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="lalign">{{predicted_data.3.0}}</td>
+                                        <td>{{predicted_data.3.1}}:00 </td>
+                                        <td>{{predicted_data.3.2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="lalign">{{predicted_data.4.0}}</td>
+                                        <td>{{predicted_data.4.1}}:00 </td>
+                                        <td>{{predicted_data.4.2}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>
+                                Keep in mind, BestInstaDay is not affiliated with Instagram™. We do not host any Instagram content. All rights belong to their respective owners.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {% endif %}
+
+            </article>
+
+            <!-- About -->
+            <article id="about">
+                <h2 class="major">About</h2>
+                <p>
+                    This tool was developed by Pierjos Francis COLERE MBOUKOU, a data science student with high knowledges and skills in analyzing, extracting meaning from and interpreting data by using specific tools and methods from statistics, Machine and Deep Learning. <br/>Here
+                    are his website and social media: <br/>
+                </p>
+                
+                <ul class="icons">
+                    <li>
+                        <a href="https://pierjoscolere.netlify.app/" target="_blank">
+                            <i class="fas fa-globe"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:Pierjos.COLERE@um6p.ma" target="_blank">
+                            <i class="icon fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/pierjos-francis-colere-mboukou-073230190/" target="_blank">
+                            <i class="icon brands fa-linkedin"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/pierjosvins/" target="_blank">
+                            <i class="icon brands fa-github"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/pierjos_fr/" target="_blank">
+                            <i class="icon brands fa-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+            </article>
+
+            <!-- Contact 
+            <article id="contact">
+                <h2 class="major">Contact</h2>
+                <form method="post" action="#" id="form-contact">{% csrf_token %}
+                    <div class="fields">
+                        <div class="field half">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" />
+                        </div>
+                        <div class="field half">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" />
+                        </div>
+                        <div class="field">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li>
+                            <input type="submit" value="Send Message" class="primary" />
+                        </li>
+                        <li><input type="reset" value="Reset" /></li>
+                    </ul>
+                </form>
+                <ul class="icons">
+                    <li>
+                        <a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="icon brands fa-instagram">
+                        <span class="label">Instagram</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="icon brands fa-github">
+                            <span class="label">GitHub</span>
+                        </a>
+                    </li>
+                </ul>
+            </article> -->
+        
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright">
+            &copy; BestInstaDay. Design: <a href="https://pierjoscolere.netlify.app/">Pierjos COLERE</a>.</p>
+        </footer>
+        </div>
+
+        <!-- BG -->
+        <div id="bg"></div>
+
+        <!-- Scripts -->
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/browser.min.js' %}"></script>
+        <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+        <script src="{% static 'assets/js/util.js' %}"></script>
+        <script src="{% static 'assets/js/main.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js" integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            $(function() {
+                $("#keywords").tablesorter();
+            });
+
+            function showLoader() {
+                document.getElementById("loader").style.display = "block";
+            }
+            showLoader();
+
+            function redirectTo() {
+                section = "{{ section|safe }}";
+                if (section != '') {
+                    website = window.location.href.split('#')[0];
+                    window.location.href = website + '#' + section;
+                }
+
+
+            }
+            redirectTo();
+        </script>
+</body>
+
+</html>
